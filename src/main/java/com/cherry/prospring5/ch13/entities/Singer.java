@@ -11,9 +11,9 @@ public class Singer {
     @Column(name = "ID")
     private Long id;
 
-//    @Version
-//    @Column(name = "VERSION")
-//    private int version;
+    @Version
+    @Column(name = "VERSION")
+    private int version;
 
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -33,13 +33,13 @@ public class Singer {
         this.id = id;
     }
 
-//    public int getVersion() {
-//        return version;
-//    }
-//
-//    public void setVersion(int version) {
-//        this.version = version;
-//    }
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -69,7 +69,7 @@ public class Singer {
     public String toString() {
         return "Singer{" +
                 "id=" + id +
-//                ", version=" + version +
+                ", version=" + version +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
