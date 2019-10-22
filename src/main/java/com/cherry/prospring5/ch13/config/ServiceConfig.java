@@ -17,7 +17,6 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.cherry.prospring5.ch13.repos"})
-@ComponentScan(basePackages = {"com.cherry.prospring5.ch13.entities", "com.cherry.prospring5.ch13.services"})
 public class ServiceConfig {
 
     @Autowired

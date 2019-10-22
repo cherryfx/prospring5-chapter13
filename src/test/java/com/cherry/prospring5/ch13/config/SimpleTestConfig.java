@@ -1,20 +1,22 @@
 package com.cherry.prospring5.ch13.config;
 
+import com.cherry.prospring5.ch13.services.DBInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
 
-@Profile("dev")
 @Configuration
-public class DataConfig {
-    private static Logger logger = LoggerFactory.getLogger(DataConfig.class);
+@ComponentScan(basePackages = {"com.cherry.prospring5.ch13"},
+        excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+                value = DBInitializer.class)
+        })
+@Profile("test")
+public class SimpleTestConfig {
+    private static Logger logger = LoggerFactory.getLogger(SimpleTestConfig.class);
 
     @Bean
     public DataSource dataSource() {
