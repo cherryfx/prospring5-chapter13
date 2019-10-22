@@ -4,6 +4,7 @@ import com.cherry.prospring5.ch13.config.DataConfig;
 import com.cherry.prospring5.ch13.config.ServiceConfig;
 import com.cherry.prospring5.ch13.entities.Singer;
 import com.cherry.prospring5.ch13.services.SingerService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,31 @@ public class SingerServiceImplTest extends AbstractTransactionalJUnit4SpringCont
     public void testFindByFirstNameAndLastName_2() throws Exception {
         Singer result = singerService.findByFirstNameAndLastName("BB", "King");
         assertNull(result);
+    }
+
+    @Test
+    public void testAddSinger() throws Exception {
+        deleteFromTables("SINGER");
+        Singer singer = new Singer();
+        singer.setFirstName("Stevie");
+        singer.setLastName("Vaughan ");
+        singerService.save(singer);
+        em.flush();
+        List<Singer> singers = singerService.findAll();
+        assertEquals(1, singers.size());
+    }
+
+    /**
+     * not accomplish need to fixed
+     * @throws Exception
+     */
+    @Test(expected = ConstraintViolationException.class)
+    public void testAddSingerWithJSR349Error() throws Exception {
+        deleteFromTables("SINGER");
+        Singer singer = new Singer();
+        singerService.save(singer);
+        em.flush();
+        List<Singer> singers = singerService.findAll();
+        assertEquals(0, singers.size());
     }
 }
